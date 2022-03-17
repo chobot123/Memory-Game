@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Memory-Game/static/css/main.00f7539a.css",
+    "main.js": "/Memory-Game/static/js/main.e0405604.js",
+    "static/media/pokedex.jpg": "/Memory-Game/static/media/pokedex.c0a4c625a7369226a20d.jpg",
+    "static/media/pokeRoad.jpg": "/Memory-Game/static/media/pokeRoad.a260c58bcd8088519f10.jpg",
+    "static/media/pokémon-poké-balls-artwork-pokeball-wallpaper.jpg": "/Memory-Game/static/media/pokémon-poké-balls-artwork-pokeball-wallpaper.712b468c17db63df6c13.jpg",
+    "index.html": "/Memory-Game/index.html",
+    "main.00f7539a.css.map": "/Memory-Game/static/css/main.00f7539a.css.map",
+    "main.e0405604.js.map": "/Memory-Game/static/js/main.e0405604.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.00f7539a.css",
+    "static/js/main.e0405604.js"
+  ]
+}
