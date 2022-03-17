@@ -1,0 +1,7 @@
+.hideCard {
+    display: none;
+}
+
+.unselectable {
+    pointer-events: none;
+}

@@ -1,28 +1,15 @@
 import React, {useEffect, useState} from "react";
 import shuffleDeck from "../../game";
 import pokeball from "/home/chobot/javascript/react/Memory-Game/memory-game/src/pokémon-poké-balls-artwork-pokeball-wallpaper.jpg"
+import './cards.css'
 
-const Gameboard = () => {
+const Gameboard = (props) => {
 
-    const [cards, setCards] = useState([]);
-
-    useEffect(() => {
-
-        async function getCards(){
-            const myCards = await shuffleDeck();
-            setCards(myCards);
-        }
-        getCards();
-    }, [])
-
-    useEffect(() => {
-        console.log(cards);
-    }, [cards])
-
+// ---------------------------- CSS ----------------------------//
     const gridWrapperStyle = {
         alignSelf: 'center',
         display: 'flex',
-        flex: '1',
+        flex: '2',
     }
     const gridStyle = {
         display: 'grid',
@@ -36,6 +23,7 @@ const Gameboard = () => {
         height: '75%',
         width: '75%',
         objectFit: 'cover',
+        pointerEvents: 'none',
     }
 
     const cardStyle = {
@@ -52,17 +40,55 @@ const Gameboard = () => {
         height: '14em',
     }
 
-    
+// ---------------------------- CSS _END_ ----------------------------//
+
+    const [cards, setCards] = useState([]);
+
+    useEffect(() => {
+        document.querySelector('#root').classList.add("unselectable");
+        async function getCards(){
+            const myCards = await shuffleDeck();
+            setCards(myCards);
+        }
+        getCards();
+        return document.querySelector("#root").classList.remove("unselectable");
+    }, [props.memory])
+
+    const handleClick = (e) => {
+
+        let name;
+        if(e.target.className === 'pokemon'){
+            e.target.classList.add('unselectable');
+            name = e.target.firstChild.id;
+        }
+        else {
+            e.target.parentElement.classList.add("unselectable");
+            name = e.target.id;
+        }
+        if(props.memory.filter((pokemon)=> pokemon !== name).length
+            === props.memory.length){
+                props.setMemory(prevState => [...prevState, name]);
+        }
+        else{ //LOSE
+            props.setMemory([]);
+        }
+    }
+
+    const onLoad = (e) => {
+        e.target.classList.remove("hideCard");
+    }
+
     return (
         <div className="gameboard-wrapper" style={gridWrapperStyle}>
             <div className="grid" style={gridStyle}>
                 {cards.map((card)=>{
                     return (
-                        <div className="pokemon" key={card.id} style={cardStyle}>
+                        <button className="pokemon" key={card.id} style={cardStyle}
+                            onClick={(e) => handleClick(e, card.name)}>
                             <div id={card.name}>
-                                <img src={card.img} style={imgStyle} alt={card.name}></img>
+                                <img className="hideCard" src={card.img} style={imgStyle} alt={card.name} onLoad={(e)=> onLoad(e)}></img>
                             </div>
-                        </div>
+                        </button>
                     )
                 })}
             </div>
